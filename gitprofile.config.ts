@@ -34,7 +34,7 @@ const CONFIG = {
       projects: [],
     },
   },
-  seo: { title: 'Portfolio of Igor Bressan', description: '', imageURL: '' },
+  seo: { title: 'iBressan - Salesforce Architect', description: '', imageURL: '' },
   social: {
     linkedin: 'igorbressan',
     x: '',

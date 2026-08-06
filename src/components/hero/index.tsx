@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { FaLinkedin, FaMapMarkerAlt } from 'react-icons/fa';
 import { PiSunBold, PiMoonBold, PiCopyBold, PiCheckBold } from 'react-icons/pi';
-import { SiSalesforce } from 'react-icons/si';
 import { FALLBACK_IMAGE } from '../../constants';
+
+const SALESFORCE_ICON_URL =
+  'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/salesforce/salesforce-original.svg';
 import { Profile } from '../../interfaces/profile';
 import {
   SanitizedExperience,
@@ -138,7 +140,7 @@ const Hero: React.FC<HeroProps> = ({
               onClick={copyTrailheadUrl}
               className="btn btn-ghost btn-sm gap-2 normal-case font-normal text-base-content/70"
             >
-              <SiSalesforce className="text-primary" />
+              <img src={SALESFORCE_ICON_URL} alt="" className="w-4 h-4" />
               salesforce.com/trailblazer/ibressan
               {copied ? <PiCheckBold className="text-success" /> : <PiCopyBold />}
             </button>
