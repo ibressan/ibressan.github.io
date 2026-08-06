@@ -50,11 +50,15 @@ const NewsPost = () => {
       : null;
 
   return (
-    <div className="min-h-screen bg-base-100">
+    <div className="min-h-screen bg-base-100 newspaper">
       <div className="max-w-3xl mx-auto px-4 py-10">
         <Link to="/" className="btn btn-ghost btn-sm mb-6 gap-2">
           <PiArrowLeft /> {t('back')}
         </Link>
+
+        <div className="newspaper-masthead text-center border-b-4 border-double border-base-content/70 pb-3 mb-8">
+          <div className="text-3xl sm:text-4xl">Salesforce News</div>
+        </div>
 
         {error && (
           <p className="text-base-content opacity-60">

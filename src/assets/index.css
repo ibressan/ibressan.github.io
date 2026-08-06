@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&display=swap');
 @plugin '@tailwindcss/typography';
 @plugin "daisyui" {
   themes: 'abyss';
@@ -133,4 +134,38 @@ svg {
   to {
     opacity: 1;
   }
+}
+
+/* Newspaper-style reading mode for news editions */
+.newspaper {
+  font-family: 'PT Serif', Georgia, serif;
+}
+
+.newspaper .newspaper-masthead {
+  font-family: 'Playfair Display', Georgia, serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.newspaper article h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 900;
+  line-height: 1.05;
+}
+
+.newspaper article h2,
+.newspaper article h3,
+.newspaper article h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-weight: 700;
+}
+
+.newspaper article p {
+  text-align: justify;
+  hyphens: auto;
+}
+
+.newspaper article blockquote {
+  font-style: italic;
+  border-left-width: 3px;
 }
