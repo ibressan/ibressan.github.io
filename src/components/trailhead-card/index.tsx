@@ -52,7 +52,7 @@ const TrailheadCard = ({ loading: parentLoading }: { loading: boolean }) => {
           <img
             src={stats.rankImageUrl}
             alt={stats.rankTitle}
-            className="w-32 h-32 my-2"
+            className="w-32 h-auto my-2 object-contain"
           />
         )}
 
