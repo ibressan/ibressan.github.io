@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { SanitizedExperience } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { localize } from '../../i18n/localize';
 
 const ListItem = ({
   time,
@@ -36,7 +37,7 @@ const ExperienceCard = ({
   experiences: SanitizedExperience[];
   loading: boolean;
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const renderSkeleton = () => {
     const array = [];
@@ -83,8 +84,8 @@ const ExperienceCard = ({
                 {experiences.map((experience, index) => (
                   <ListItem
                     key={index}
-                    time={`${experience.from} - ${experience.to}`}
-                    position={experience.position}
+                    time={`${localize(experience.from, language)} - ${localize(experience.to, language)}`}
+                    position={localize(experience.position, language)}
                     company={experience.company}
                     companyLink={
                       experience.companyLink

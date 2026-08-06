@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+  schedule:
+    # Keeps the Trailhead card fresh even without a new commit.
+    - cron: "0 9 * * *"
+
   workflow_dispatch:
 
 permissions:
@@ -29,6 +33,14 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch Trailhead stats
+        run: python scripts/fetch_trailhead.py
 
       - name: Install dependencies
         run: npm install

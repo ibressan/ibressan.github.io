@@ -2,6 +2,7 @@ import React from 'react';
 import { SanitizedEducation } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { localize } from '../../i18n/localize';
 
 const ListItem = ({
   time,
@@ -30,7 +31,7 @@ const EducationCard = ({
   loading: boolean;
   educations: SanitizedEducation[];
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const renderSkeleton = () => {
     const array = [];
@@ -78,8 +79,8 @@ const EducationCard = ({
                 {educations.map((item, index) => (
                   <ListItem
                     key={index}
-                    time={`${item.from} - ${item.to}`}
-                    degree={item.degree}
+                    time={`${localize(item.from, language)} - ${localize(item.to, language)}`}
+                    degree={localize(item.degree, language)}
                     institution={item.institution}
                   />
                 ))}

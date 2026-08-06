@@ -27,6 +27,7 @@ import GithubProjectCard from './github-project-card';
 import ExternalProjectCard from './external-project-card';
 import BlogCard from './blog-card';
 import NewsCard from './news-card';
+import TrailheadCard from './trailhead-card';
 import Footer from './footer';
 import PublicationCard from './publication-card';
 
@@ -212,6 +213,7 @@ const GitProfile = ({ config }: { config: Config }) => {
                     github={sanitizedConfig.github}
                     social={sanitizedConfig.social}
                   />
+                  <TrailheadCard loading={loading} />
                   {sanitizedConfig.skills.length !== 0 && (
                     <SkillCard
                       loading={loading}

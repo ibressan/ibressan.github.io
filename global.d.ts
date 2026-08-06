@@ -215,11 +215,13 @@ interface Resume {
   fileUrl?: string;
 }
 
+type LocalizedText = string | { pt: string; en: string };
+
 interface Experience {
   company?: string;
-  position?: string;
-  from: string;
-  to: string;
+  position?: LocalizedText;
+  from: LocalizedText;
+  to: LocalizedText;
   companyLink?: string;
 }
 
@@ -232,9 +234,9 @@ interface Certification {
 
 interface Education {
   institution?: string;
-  degree?: string;
-  from: string;
-  to: string;
+  degree?: LocalizedText;
+  from: LocalizedText;
+  to: LocalizedText;
 }
 
 interface Publication {

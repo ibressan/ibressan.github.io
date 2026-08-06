@@ -69,11 +69,13 @@ export interface SanitizedResume {
   fileUrl?: string;
 }
 
+export type LocalizedText = string | { pt: string; en: string };
+
 export interface SanitizedExperience {
   company?: string;
-  position?: string;
-  from: string;
-  to: string;
+  position?: LocalizedText;
+  from: LocalizedText;
+  to: LocalizedText;
   companyLink?: string;
 }
 
@@ -86,9 +88,9 @@ export interface SanitizedCertification {
 
 export interface SanitizedEducation {
   institution?: string;
-  degree?: string;
-  from: string;
-  to: string;
+  degree?: LocalizedText;
+  from: LocalizedText;
+  to: LocalizedText;
 }
 
 export interface SanitizedPublication {
