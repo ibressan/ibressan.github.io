@@ -1,30 +1,28 @@
 @import 'tailwindcss';
 @plugin "daisyui" {
-  themes:
-    'light', 'dark', 'cupcake', 'bumblebee', 'emerald', 'corporate',
-    'synthwave', 'retro', 'cyberpunk', 'valentine', 'halloween', 'garden',
-    'forest', 'aqua', 'lofi', 'pastel', 'fantasy', 'wireframe', 'black',
-    'luxury', 'dracula', 'cmyk', 'autumn', 'business', 'acid', 'lemonade',
-    'night', 'coffee', 'winter', 'dim', 'nord', 'sunset', 'caramellatte',
-    'abyss', 'silk', 'procyon';
+  themes: 'abyss';
 }
 
+/* Abyss's dark base/neutral tones, with Procyon's primary/secondary/accent
+   and semantic colors instead of Abyss's defaults. */
 @plugin "daisyui/theme" {
-  name: 'procyon';
-  color-scheme: light;
+  name: 'abyss';
+  default: true;
+  color-scheme: dark;
 
-  --color-base-100: #e3e3ed;
-  --color-base-200: #d1d1db;
-  --color-base-300: #bfbfc9;
-  --color-base-content: #2a2730;
+  --color-base-100: oklch(20% 0.08 209);
+  --color-base-200: oklch(15% 0.08 209);
+  --color-base-300: oklch(10% 0.08 209);
+  --color-base-content: oklch(90% 0.076 70.697);
+  --color-neutral: oklch(30% 0.08 209);
+  --color-neutral-content: oklch(90% 0.076 70.697);
+
   --color-primary: #fc055b;
   --color-primary-content: #ffffff;
   --color-secondary: #219aaf;
   --color-secondary-content: #ffffff;
   --color-accent: #e8d03a;
   --color-accent-content: #2a2730;
-  --color-neutral: #2a2730;
-  --color-neutral-content: #ffffff;
   --color-info: #219aaf;
   --color-info-content: #ffffff;
   --color-success: #16a34a;
@@ -35,9 +33,9 @@
   --color-error-content: #ffffff;
 
   /* border radius */
-  --radius-selector: 3rem;
-  --radius-field: 3rem;
-  --radius-box: 3rem;
+  --radius-selector: 2rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
 
   /* base sizes */
   --size-selector: 0.25rem;
