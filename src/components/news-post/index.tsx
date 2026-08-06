@@ -132,6 +132,15 @@ const NewsPost = () => {
                     <a
                       href={`#${item.slug}`}
                       className="link link-hover text-base-content/80"
+                      onClick={(e) => {
+                        // Plain hash navigation would be swallowed by the
+                        // app's HashRouter (it treats the URL hash as the
+                        // route), blanking the page — scroll manually instead.
+                        e.preventDefault();
+                        document
+                          .getElementById(item.slug)
+                          ?.scrollIntoView({ behavior: 'smooth' });
+                      }}
                     >
                       {item.text}
                     </a>

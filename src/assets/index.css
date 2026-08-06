@@ -158,6 +158,7 @@ svg {
 .newspaper article h4 {
   font-family: 'Playfair Display', Georgia, serif;
   font-weight: 700;
+  scroll-margin-top: 1.5rem;
 }
 
 .newspaper article p {
