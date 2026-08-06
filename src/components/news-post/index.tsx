@@ -11,7 +11,7 @@ const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main/editions/`;
 
 const NewsPost = () => {
   const { date } = useParams<{ date: string }>();
-  const { language, t } = useLanguage();
+  const { language, setLanguage, t } = useLanguage();
   const [rawContent, setRawContent] = useState<string | null>(null);
   const [error, setError] = useState(false);
 
@@ -52,9 +52,32 @@ const NewsPost = () => {
   return (
     <div className="min-h-screen bg-base-100 newspaper">
       <div className="max-w-3xl mx-auto px-4 py-10">
-        <Link to="/" className="btn btn-ghost btn-sm mb-6 gap-2">
-          <PiArrowLeft /> {t('back')}
-        </Link>
+        <div className="flex items-center justify-between mb-6">
+          <Link to="/" className="btn btn-ghost btn-sm gap-2">
+            <PiArrowLeft /> {t('back')}
+          </Link>
+
+          <div className="join">
+            <button
+              className={`join-item btn btn-sm ${
+                language === 'pt' ? 'btn-primary' : 'btn-ghost'
+              }`}
+              onClick={() => setLanguage('pt')}
+              aria-label="Português"
+            >
+              🇧🇷 PT
+            </button>
+            <button
+              className={`join-item btn btn-sm ${
+                language === 'en' ? 'btn-primary' : 'btn-ghost'
+              }`}
+              onClick={() => setLanguage('en')}
+              aria-label="English"
+            >
+              🇺🇸 EN
+            </button>
+          </div>
+        </div>
 
         <div className="newspaper-masthead text-center border-b-4 border-double border-base-content/70 pb-3 mb-8">
           <div className="text-3xl sm:text-4xl">Salesforce News</div>
