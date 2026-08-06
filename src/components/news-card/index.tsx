@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LazyImage from '../lazy-image';
 import { PiNewspaper } from 'react-icons/pi';
 import { formatDistance } from 'date-fns';
@@ -37,6 +38,7 @@ const NewsCard = ({
 }) => {
   const [editions, setEditions] = useState<NewsEdition[]>([]);
   const [fetching, setFetching] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchEditions = async () => {
@@ -81,7 +83,7 @@ const NewsCard = ({
               title,
               description,
               thumbnail: coverByDate.get(dateStr),
-              link: `https://github.com/${REPO}/blob/main/editions/${file.name}`,
+              link: `/news/${dateStr}`,
               publishedAt: new Date(dateStr),
             };
           }),
@@ -170,7 +172,7 @@ const NewsCard = ({
               console.error(error);
             }
 
-            window?.open(edition.link, '_blank');
+            navigate(edition.link);
           }}
         >
           <div className="p-8 h-full w-full">
