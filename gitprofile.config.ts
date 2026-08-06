@@ -147,8 +147,11 @@ const CONFIG = {
   certifications: [
     {
       name: 'Salesforce Certified Platform Developer I',
-      body: '',
-      year: '',
+      body: {
+        pt: 'Profissionais certificados em Platform Developer entendem como desenvolver e implantar lógica de negócio e interfaces customizadas usando os recursos de programação da Lightning Platform. Também são capazes de estender a Lightning Platform usando Apex e Visualforce.',
+        en: 'Certified Platform Developers understand how to develop and deploy custom business logic and custom interfaces using the programmatic capabilities of the Lightning Platform. They can also extend the Lightning Platform using Apex and Visualforce.',
+      },
+      year: { pt: 'Outubro de 2017', en: 'October 2017' },
       link: 'https://www.salesforce.com/trailblazer/ibressan',
     },
   ],

@@ -2,6 +2,7 @@ import React from 'react';
 import { SanitizedCertification } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { localize } from '../../i18n/localize';
 
 const ListItem = ({
   year,
@@ -11,7 +12,7 @@ const ListItem = ({
 }: {
   year?: React.ReactNode;
   name?: React.ReactNode;
-  body?: React.ReactNode;
+  body?: string;
   link?: string;
 }) => (
   <li className="mb-5 ml-4">
@@ -20,12 +21,18 @@ const ListItem = ({
       style={{ left: '-4.5px' }}
     ></div>
     <div className="my-0.5 text-xs">{year}</div>
-    <div className="font-medium">
+    <div className="font-medium group relative inline-block">
       <a href={link} target="_blank" rel="noreferrer">
         {name}
       </a>
+      {body && (
+        <div className="pointer-events-none absolute z-10 left-0 top-full mt-2 w-72 max-w-[80vw] opacity-0 group-hover:opacity-100 transition-opacity duration-150">
+          <div className="rounded-lg bg-neutral text-neutral-content text-xs font-normal p-3 shadow-lg">
+            {body}
+          </div>
+        </div>
+      )}
     </div>
-    <h3 className="mb-4 font-normal">{body}</h3>
   </li>
 );
 
@@ -36,7 +43,7 @@ const CertificationCard = ({
   certifications: SanitizedCertification[];
   loading: boolean;
 }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const renderSkeleton = () => {
     const array = [];
@@ -53,7 +60,6 @@ const CertificationCard = ({
             heightCls: 'h-4',
             className: 'my-1.5',
           })}
-          body={skeleton({ widthCls: 'w-6/12', heightCls: 'h-3' })}
         />,
       );
     }
@@ -84,9 +90,9 @@ const CertificationCard = ({
                 {certifications.map((certification, index) => (
                   <ListItem
                     key={index}
-                    year={certification.year}
+                    year={localize(certification.year, language)}
                     name={certification.name}
-                    body={certification.body}
+                    body={localize(certification.body, language)}
                     link={certification.link}
                   />
                 ))}

@@ -88,7 +88,7 @@ const NewsPost = () => {
               onClick={() => setLanguage('pt')}
               aria-label="Português"
             >
-              🇧🇷 PT
+              PT
             </button>
             <button
               className={`join-item btn btn-sm ${
@@ -97,7 +97,7 @@ const NewsPost = () => {
               onClick={() => setLanguage('en')}
               aria-label="English"
             >
-              🇺🇸 EN
+              EN
             </button>
           </div>
         </div>

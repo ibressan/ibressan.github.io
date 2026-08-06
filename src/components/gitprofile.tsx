@@ -198,6 +198,7 @@ const GitProfile = ({ config }: { config: Config }) => {
               github={sanitizedConfig.github}
               social={sanitizedConfig.social}
               resumeFileUrl={sanitizedConfig.resume.fileUrl}
+              currentExperience={sanitizedConfig.experiences[0]}
               theme={theme}
               onToggleTheme={toggleTheme}
             />

@@ -226,9 +226,9 @@ interface Experience {
 }
 
 interface Certification {
-  body?: string;
+  body?: LocalizedText;
   name?: string;
-  year?: string;
+  year?: LocalizedText;
   link?: string;
 }
 

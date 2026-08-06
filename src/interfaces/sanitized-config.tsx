@@ -80,9 +80,9 @@ export interface SanitizedExperience {
 }
 
 export interface SanitizedCertification {
-  body?: string;
+  body?: LocalizedText;
   name?: string;
-  year?: string;
+  year?: LocalizedText;
   link?: string;
 }
 
