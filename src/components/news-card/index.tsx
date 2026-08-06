@@ -13,7 +13,6 @@ const LIMIT = 5;
 
 interface NewsEditionRaw {
   rawContent: string;
-  thumbnail?: string;
   link: string;
   publishedAt: Date;
 }
@@ -63,15 +62,6 @@ const NewsCard = ({
           .sort((a, b) => b.name.localeCompare(a.name))
           .slice(0, LIMIT);
 
-        const coverByDate = new Map(
-          files
-            .filter((f) => f.name.startsWith('cover-'))
-            .map((f) => [
-              f.name.replace('cover-', '').replace('.jpg', ''),
-              f.download_url,
-            ]),
-        );
-
         const parsed = await Promise.all(
           mdFiles.map(async (file) => {
             const dateStr = file.name.replace('.md', '');
@@ -80,7 +70,6 @@ const NewsCard = ({
 
             return {
               rawContent,
-              thumbnail: coverByDate.get(dateStr),
               link: `/news/${dateStr}`,
               publishedAt: new Date(dateStr),
             };
@@ -103,8 +92,20 @@ const NewsCard = ({
       edition.rawContent,
       language,
     );
-    const bulletMatch = body.match(/^- (.+)$/m);
-    let description = bulletMatch ? stripMarkdown(bulletMatch[1]) : '';
+
+    // The edition's cover, if any, is the ![Cover](url) line at the very
+    // top of the file — the same URL Gemini picked from a source article.
+    const coverMatch = edition.rawContent.match(/^!\[Cover\]\((.+)\)/m);
+
+    // Technical News items are editorial paragraphs (no leading "- "), so
+    // the excerpt is the first paragraph after that section's heading —
+    // usually the lead-in framing the week, which reads well as a teaser.
+    const newsSectionMatch = body.match(
+      /###\s*🚀[^\n]*\n+([^\n]+(?:\n(?!\n|#)[^\n]+)*)/,
+    );
+    let description = newsSectionMatch
+      ? stripMarkdown(newsSectionMatch[1])
+      : '';
     if (description.length > 180) {
       description = description.slice(0, 180) + '…';
     }
@@ -112,7 +113,7 @@ const NewsCard = ({
     return {
       title: stripMarkdown(title),
       description,
-      thumbnail: edition.thumbnail,
+      thumbnail: coverMatch ? coverMatch[1] : undefined,
       link: edition.link,
       publishedAt: edition.publishedAt,
     };
