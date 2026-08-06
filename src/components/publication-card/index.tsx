@@ -2,6 +2,7 @@ import { Fragment } from 'react';
 import { AiOutlineBook } from 'react-icons/ai';
 import { SanitizedPublication } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const PublicationCard = ({
   publications,
@@ -10,6 +11,8 @@ const PublicationCard = ({
   publications: SanitizedPublication[];
   loading: boolean;
 }) => {
+  const { t } = useLanguage();
+
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < publications.length; index++) {
@@ -140,7 +143,7 @@ const PublicationCard = ({
                   <h3 className="text-base sm:text-lg font-bold text-base-content truncate">
                     {loading
                       ? skeleton({ widthCls: 'w-40', heightCls: 'h-8' })
-                      : 'Publications'}
+                      : t('publications')}
                   </h3>
                   <div className="text-base-content/60 text-xs sm:text-sm mt-1 truncate">
                     {loading

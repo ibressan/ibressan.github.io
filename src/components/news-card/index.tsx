@@ -4,10 +4,19 @@ import LazyImage from '../lazy-image';
 import { PiNewspaper } from 'react-icons/pi';
 import { formatDistance } from 'date-fns';
 import { ga, skeleton } from '../../utils';
+import { useLanguage } from '../../i18n/LanguageContext';
+import { splitEditionByLanguage } from '../../i18n/newsMarkdown';
 
 const REPO = 'ibressan/salesforce-news';
 const EDITIONS_PATH = 'editions';
 const LIMIT = 5;
+
+interface NewsEditionRaw {
+  rawContent: string;
+  thumbnail?: string;
+  link: string;
+  publishedAt: Date;
+}
 
 interface NewsEdition {
   title: string;
@@ -36,9 +45,10 @@ const NewsCard = ({
   loading: boolean;
   googleAnalyticsId?: string;
 }) => {
-  const [editions, setEditions] = useState<NewsEdition[]>([]);
+  const [rawEditions, setRawEditions] = useState<NewsEditionRaw[]>([]);
   const [fetching, setFetching] = useState(true);
   const navigate = useNavigate();
+  const { language, t } = useLanguage();
 
   useEffect(() => {
     const fetchEditions = async () => {
@@ -66,22 +76,10 @@ const NewsCard = ({
           mdFiles.map(async (file) => {
             const dateStr = file.name.replace('.md', '');
             const contentRes = await fetch(file.download_url);
-            const content = await contentRes.text();
-
-            const titleMatch = content.match(/^#\s+(.+)$/m);
-            const title = titleMatch
-              ? stripMarkdown(titleMatch[1])
-              : `Edição de ${dateStr}`;
-
-            const bulletMatch = content.match(/^- (.+)$/m);
-            let description = bulletMatch ? stripMarkdown(bulletMatch[1]) : '';
-            if (description.length > 180) {
-              description = description.slice(0, 180) + '…';
-            }
+            const rawContent = await contentRes.text();
 
             return {
-              title,
-              description,
+              rawContent,
               thumbnail: coverByDate.get(dateStr),
               link: `/news/${dateStr}`,
               publishedAt: new Date(dateStr),
@@ -89,7 +87,7 @@ const NewsCard = ({
           }),
         );
 
-        setEditions(parsed);
+        setRawEditions(parsed);
       } catch (error) {
         console.error(error);
       } finally {
@@ -99,6 +97,26 @@ const NewsCard = ({
 
     fetchEditions();
   }, []);
+
+  const editions: NewsEdition[] = rawEditions.map((edition) => {
+    const { title, body } = splitEditionByLanguage(
+      edition.rawContent,
+      language,
+    );
+    const bulletMatch = body.match(/^- (.+)$/m);
+    let description = bulletMatch ? stripMarkdown(bulletMatch[1]) : '';
+    if (description.length > 180) {
+      description = description.slice(0, 180) + '…';
+    }
+
+    return {
+      title: stripMarkdown(title),
+      description,
+      thumbnail: edition.thumbnail,
+      link: edition.link,
+      publishedAt: edition.publishedAt,
+    };
+  });
 
   const loading = parentLoading || fetching;
 
@@ -221,7 +239,7 @@ const NewsCard = ({
       <div className="text-center mb-6">
         <PiNewspaper className="mx-auto h-12 w-12 opacity-30" />
         <p className="mt-1 text-sm opacity-50 text-base-content">
-          No recent edition
+          {t('noRecentEdition')}
         </p>
       </div>
     );
@@ -248,12 +266,12 @@ const NewsCard = ({
                 <h3 className="text-base sm:text-lg font-bold text-base-content truncate">
                   {loading
                     ? skeleton({ widthCls: 'w-28', heightCls: 'h-8' })
-                    : 'Salesforce News'}
+                    : t('salesforceNews')}
                 </h3>
                 <div className="text-base-content/60 text-xs sm:text-sm mt-1 truncate">
                   {loading
                     ? skeleton({ widthCls: 'w-32', heightCls: 'h-4' })
-                    : 'Recent editions'}
+                    : t('recentEditions')}
                 </div>
               </div>
             </div>

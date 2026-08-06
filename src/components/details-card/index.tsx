@@ -7,7 +7,6 @@ import {
 import { CgDribbble } from 'react-icons/cg';
 import {
   FaBehanceSquare,
-  FaBuilding,
   FaDev,
   FaFacebook,
   FaGlobe,
@@ -28,20 +27,13 @@ import {
   SanitizedSocial,
 } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 type Props = {
   profile: Profile | null;
   loading: boolean;
   social: SanitizedSocial;
   github: SanitizedGithub;
-};
-
-const isCompanyMention = (company: string): boolean => {
-  return company.startsWith('@') && !company.includes(' ');
-};
-
-const companyLink = (company: string): string => {
-  return `https://github.com/${company.substring(1)}`;
 };
 
 const getFormattedMastodonValue = (
@@ -90,57 +82,6 @@ const ListItem: React.FC<{
   );
 };
 
-const OrganizationItem: React.FC<{
-  icon: React.ReactNode;
-  title: React.ReactNode;
-  value: React.ReactNode | string;
-  link?: string;
-  skeleton?: boolean;
-}> = ({ icon, title, value, link, skeleton = false }) => {
-  const renderValue = () => {
-    if (typeof value === 'string') {
-      return value.split(' ').map((company) => {
-        company = company.trim();
-        if (!company) return null;
-
-        if (isCompanyMention(company)) {
-          return (
-            <a
-              href={companyLink(company)}
-              target="_blank"
-              rel="noreferrer"
-              key={company}
-            >
-              {company}
-            </a>
-          );
-        } else {
-          return <span key={company}>{company}</span>;
-        }
-      });
-    }
-    return value;
-  };
-
-  return (
-    <div className="flex justify-start py-2 px-1 items-center">
-      <div className="grow font-medium gap-2 flex items-center my-1">
-        {icon} {title}
-      </div>
-      <div
-        className={`${
-          skeleton ? 'grow' : ''
-        } text-sm font-normal text-right mr-2 ml-3 space-x-2 ${link ? 'truncate' : ''}`}
-        style={{
-          wordBreak: 'break-word',
-        }}
-      >
-        {renderValue()}
-      </div>
-    </div>
-  );
-};
-
 /**
  * Renders the details card component.
  *
@@ -151,6 +92,8 @@ const OrganizationItem: React.FC<{
  * @return {JSX.Element} The details card component.
  */
 const DetailsCard = ({ profile, loading, social, github }: Props) => {
+  const { t } = useLanguage();
+
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < 4; index++) {
@@ -179,20 +122,8 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
               {profile.location && (
                 <ListItem
                   icon={<MdLocationOn />}
-                  title="Based in:"
+                  title={t('basedIn')}
                   value={profile.location}
-                />
-              )}
-              {profile.company && (
-                <OrganizationItem
-                  icon={<FaBuilding />}
-                  title="Organization:"
-                  value={profile.company}
-                  link={
-                    isCompanyMention(profile.company.trim())
-                      ? companyLink(profile.company.trim())
-                      : undefined
-                  }
                 />
               )}
               <ListItem
@@ -324,7 +255,7 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
               {social?.website && (
                 <ListItem
                   icon={<FaGlobe />}
-                  title="Website:"
+                  title={t('website')}
                   value={social.website
                     .replace('https://', '')
                     .replace('http://', '')}
@@ -346,7 +277,7 @@ const DetailsCard = ({ profile, loading, social, github }: Props) => {
               {social?.phone && (
                 <ListItem
                   icon={<RiPhoneFill />}
-                  title="Phone:"
+                  title={t('phone')}
                   value={social.phone}
                   link={`tel:${social.phone}`}
                 />

@@ -3,19 +3,22 @@ import { useParams, Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { PiArrowLeft } from 'react-icons/pi';
+import { useLanguage } from '../../i18n/LanguageContext';
+import { splitEditionByLanguage } from '../../i18n/newsMarkdown';
 
 const REPO = 'ibressan/salesforce-news';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main/editions/`;
 
 const NewsPost = () => {
   const { date } = useParams<{ date: string }>();
-  const [content, setContent] = useState<string | null>(null);
+  const { language, t } = useLanguage();
+  const [rawContent, setRawContent] = useState<string | null>(null);
   const [error, setError] = useState(false);
 
   useEffect(() => {
     if (!date) return;
 
-    setContent(null);
+    setRawContent(null);
     setError(false);
 
     fetch(`${RAW_BASE}${date}.md`)
@@ -30,26 +33,37 @@ const NewsPost = () => {
           /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
           (_match, alt, src) => `![${alt}](${RAW_BASE}${src})`,
         );
-        setContent(resolved);
+        setRawContent(resolved);
       })
       .catch(() => setError(true));
   }, [date]);
+
+  const content =
+    rawContent !== null
+      ? (() => {
+          const { title, body } = splitEditionByLanguage(
+            rawContent,
+            language,
+          );
+          return `# ${title}\n\n${body}`;
+        })()
+      : null;
 
   return (
     <div className="min-h-screen bg-base-100">
       <div className="max-w-3xl mx-auto px-4 py-10">
         <Link to="/" className="btn btn-ghost btn-sm mb-6 gap-2">
-          <PiArrowLeft /> Voltar
+          <PiArrowLeft /> {t('back')}
         </Link>
 
         {error && (
           <p className="text-base-content opacity-60">
-            Não foi possível carregar esta edição.
+            {t('editionLoadError')}
           </p>
         )}
 
         {!error && content === null && (
-          <p className="text-base-content opacity-60">Carregando…</p>
+          <p className="text-base-content opacity-60">{t('loading')}</p>
         )}
 
         {!error && content !== null && (

@@ -2,6 +2,7 @@ import { FALLBACK_IMAGE } from '../../constants';
 import { Profile } from '../../interfaces/profile';
 import { skeleton } from '../../utils';
 import LazyImage from '../lazy-image';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 interface AvatarCardProps {
   profile: Profile | null;
@@ -24,9 +25,31 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
   avatarRing,
   resumeFileUrl,
 }): React.JSX.Element => {
+  const { language, setLanguage, t } = useLanguage();
+
   return (
     <div className="card shadow-lg card-sm bg-base-100">
       <div className="grid place-items-center py-8">
+        <div className="join mb-4">
+          <button
+            className={`join-item btn btn-sm ${
+              language === 'pt' ? 'btn-primary' : 'btn-ghost'
+            }`}
+            onClick={() => setLanguage('pt')}
+            aria-label="Português"
+          >
+            🇧🇷 PT
+          </button>
+          <button
+            className={`join-item btn btn-sm ${
+              language === 'en' ? 'btn-primary' : 'btn-ghost'
+            }`}
+            onClick={() => setLanguage('en')}
+            aria-label="English"
+          >
+            🇺🇸 EN
+          </button>
+        </div>
         {loading || !profile ? (
           <div className="avatar opacity-90">
             <div className="mb-8 rounded-full w-32 h-32">
@@ -89,7 +112,7 @@ const AvatarCard: React.FC<AvatarCardProps> = ({
               download
               rel="noreferrer"
             >
-              Download Resume
+              {t('downloadResume')}
             </a>
           ))}
       </div>

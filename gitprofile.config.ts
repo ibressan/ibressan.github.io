@@ -146,7 +146,14 @@ const CONFIG = {
       link: 'https://www.salesforce.com/trailblazer/ibressan',
     },
   ],
-  educations: [],
+  educations: [
+    {
+      institution: 'Universidade São Judas Tadeu',
+      degree: 'Bacharel em Ciência da Computação',
+      from: '2011',
+      to: '2016',
+    },
+  ],
   publications: [],
   // Display articles from your medium or dev account. (Optional)
   blog: {

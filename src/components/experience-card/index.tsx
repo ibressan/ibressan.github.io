@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { SanitizedExperience } from '../../interfaces/sanitized-config';
 import { skeleton } from '../../utils';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const ListItem = ({
   time,
@@ -35,6 +36,8 @@ const ExperienceCard = ({
   experiences: SanitizedExperience[];
   loading: boolean;
 }) => {
+  const { t } = useLanguage();
+
   const renderSkeleton = () => {
     const array = [];
     for (let index = 0; index < 2; index++) {
@@ -65,7 +68,9 @@ const ExperienceCard = ({
             {loading ? (
               skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
             ) : (
-              <span className="text-base-content opacity-70">Experience</span>
+              <span className="text-base-content opacity-70">
+                {t('experience')}
+              </span>
             )}
           </h5>
         </div>
