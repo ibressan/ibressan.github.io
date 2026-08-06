@@ -21,6 +21,7 @@ export const STRINGS: Record<Language, Record<string, string>> = {
     loading: 'Carregando…',
     editionLoadError: 'Não foi possível carregar esta edição.',
     goToTrailhead: 'Ir para o Trailhead',
+    inThisEdition: 'Nesta edição',
   },
   en: {
     experience: 'Experience',
@@ -42,5 +43,6 @@ export const STRINGS: Record<Language, Record<string, string>> = {
     loading: 'Loading…',
     editionLoadError: 'Could not load this edition.',
     goToTrailhead: 'Go to Trailhead',
+    inThisEdition: 'In this edition',
   },
 };
