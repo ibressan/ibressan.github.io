@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap');
 @plugin '@tailwindcss/typography';
 @plugin "daisyui" {
-  themes: 'modern';
+  themes: 'modern', 'modern-dark';
 }
 
 /* Clean, editorial-personal-site palette — light paper background, near-black
@@ -52,6 +52,43 @@
   --noise: 0;
 }
 
+/* Dark counterpart of 'modern' — same accent colors, dark background. */
+@plugin "daisyui/theme" {
+  name: 'modern-dark';
+  color-scheme: dark;
+
+  --color-base-100: #14171f;
+  --color-base-200: #1b1f29;
+  --color-base-300: #262b37;
+  --color-base-content: #eef0f3;
+  --color-neutral: #eef0f3;
+  --color-neutral-content: #14171f;
+
+  --color-primary: #4bb4ff;
+  --color-primary-content: #0b1220;
+  --color-secondary: #9ca3af;
+  --color-secondary-content: #14171f;
+  --color-accent: #ff8a76;
+  --color-accent-content: #14171f;
+  --color-info: #4bb4ff;
+  --color-info-content: #0b1220;
+  --color-success: #22c55e;
+  --color-success-content: #0b1220;
+  --color-warning: #fbbf24;
+  --color-warning-content: #0b1220;
+  --color-error: #f87171;
+  --color-error-content: #0b1220;
+
+  --radius-selector: 1rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
 * {
   scrollbar-width: thin;
 }
@@ -91,7 +128,7 @@ body {
   max-width: 56rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 3rem 1.5rem;
+  padding: 1.5rem 1.5rem;
 }
 
 .site-section + .site-section {

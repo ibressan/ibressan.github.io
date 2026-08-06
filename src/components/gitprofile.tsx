@@ -38,6 +38,9 @@ const GitProfile = ({ config }: { config: Config }) => {
   const [sanitizedConfig] = useState<SanitizedConfig | Record<string, never>>(
     getSanitizedConfig(config),
   );
+  const [theme, setTheme] = useState<string>(
+    () => localStorage.getItem('gitprofile-color-theme') || 'modern',
+  );
   const [error, setError] = useState<CustomError | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile | null>(null);
@@ -136,6 +139,14 @@ const GitProfile = ({ config }: { config: Config }) => {
     }
   }, [sanitizedConfig, loadData]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('gitprofile-color-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () =>
+    setTheme((current) => (current === 'modern' ? 'modern-dark' : 'modern'));
+
   const handleError = (error: AxiosError | Error): void => {
     console.error('Error:', error);
 
@@ -187,6 +198,8 @@ const GitProfile = ({ config }: { config: Config }) => {
               github={sanitizedConfig.github}
               social={sanitizedConfig.social}
               resumeFileUrl={sanitizedConfig.resume.fileUrl}
+              theme={theme}
+              onToggleTheme={toggleTheme}
             />
 
             <div className="site-section">
