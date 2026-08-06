@@ -3,19 +3,19 @@
   themes: 'abyss';
 }
 
-/* Abyss's dark base/neutral tones, with Procyon's primary/secondary/accent
-   and semantic colors instead of Abyss's defaults. */
+/* Registered as 'abyss' (Abyss's shape/radius kept), but the full color
+   palette — including the background — comes from Procyon. */
 @plugin "daisyui/theme" {
   name: 'abyss';
   default: true;
-  color-scheme: dark;
+  color-scheme: light;
 
-  --color-base-100: oklch(20% 0.08 209);
-  --color-base-200: oklch(15% 0.08 209);
-  --color-base-300: oklch(10% 0.08 209);
-  --color-base-content: oklch(90% 0.076 70.697);
-  --color-neutral: oklch(30% 0.08 209);
-  --color-neutral-content: oklch(90% 0.076 70.697);
+  --color-base-100: #e3e3ed;
+  --color-base-200: #d1d1db;
+  --color-base-300: #bfbfc9;
+  --color-base-content: #2a2730;
+  --color-neutral: #2a2730;
+  --color-neutral-content: #ffffff;
 
   --color-primary: #fc055b;
   --color-primary-content: #ffffff;
