@@ -87,36 +87,6 @@ const CONFIG = {
     'Informix',
     'Git',
   ],
-  achievements: [
-    {
-      pt: 'Mais de 10 anos consolidando expertise em Sales Cloud e Marketing Cloud, atuando em ambientes corporativos de alta criticidade, com destaque para o setor financeiro.',
-      en: 'Over 10 years building expertise in Sales Cloud and Marketing Cloud, working in high-criticality corporate environments, with emphasis on the financial sector.',
-    },
-    {
-      pt: 'Evolução consistente de desenvolvedor a especialista Salesforce, acumulando responsabilidades em desenho de soluções, integrações críticas e governança de plataforma.',
-      en: 'Consistent growth from developer to Salesforce specialist, taking on increasing responsibility for solution design, critical integrations, and platform governance.',
-    },
-    {
-      pt: 'Referência técnica na Renova Invest, à frente da evolução contínua da plataforma e da consolidação de padrões de desenvolvimento que orientam toda a área.',
-      en: "Technical reference at Renova Invest, leading the platform's continuous evolution and consolidating development standards that guide the entire team.",
-    },
-    {
-      pt: 'Atuação abrangente em Sales Cloud, Service Cloud, Experience Cloud e Marketing Cloud, com integrações REST/SOAP e foco em arquitetura de soluções.',
-      en: 'Broad experience across Sales Cloud, Service Cloud, Experience Cloud, and Marketing Cloud, with REST/SOAP integrations and a focus on solution architecture.',
-    },
-    {
-      pt: 'Trajetória construída em projetos nacionais e internacionais, unindo visão técnica e de negócio.',
-      en: 'Career built across national and international projects, combining technical and business vision.',
-    },
-    {
-      pt: 'Condução da migração completa de uma org Salesforce legada para uma nova org, da concepção ao go-live.',
-      en: 'Led a full migration from a legacy Salesforce org to a new org, from conception to go-live.',
-    },
-    {
-      pt: 'Aplicação de IA generativa no desenvolvimento e na gestão dos ambientes Salesforce, ganhando velocidade e consistência nas entregas.',
-      en: 'Applied generative AI in development and management of Salesforce environments, gaining speed and consistency in deliveries.',
-    },
-  ],
   experiences: [
     {
       company: 'Renova Invest',

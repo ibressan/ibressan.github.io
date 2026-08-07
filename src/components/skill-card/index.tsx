@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { PiCaretDownBold } from 'react-icons/pi';
 import { skeleton } from '../../utils';
 import { useLanguage } from '../../i18n/LanguageContext';
 
@@ -21,6 +23,59 @@ const SKILL_ICONS: Record<string, string> = {
   'SQL Server': `${DEVICON_BASE}/microsoftsqlserver/microsoftsqlserver-plain.svg`,
 };
 
+// Skills grouped under the "Salesforce" tile — kept out of the main grid,
+// revealed when that tile is expanded.
+const SALESFORCE_GROUP = [
+  'Sales Cloud',
+  'Service Cloud',
+  'Experience Cloud',
+  'Marketing Cloud',
+  'Apex',
+  'LWC',
+  'Aura Components',
+  'Visualforce',
+  'SOQL',
+  'REST APIs',
+  'SOAP APIs',
+  'Flow',
+];
+
+const SkillTile = ({
+  skill,
+  small,
+}: {
+  skill: string;
+  small?: boolean;
+}) => {
+  const icon = SKILL_ICONS[skill];
+  return (
+    <div
+      className={`aspect-square rounded-xl bg-base-200 border border-base-300 flex flex-col items-center justify-center gap-2 ${
+        small ? 'p-2' : 'p-3'
+      }`}
+    >
+      {icon ? (
+        <img
+          src={icon}
+          alt=""
+          className={small ? 'w-7 h-7 object-contain' : 'w-9 h-9 object-contain'}
+        />
+      ) : (
+        <div
+          className={`rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm ${
+            small ? 'w-7 h-7' : 'w-9 h-9'
+          }`}
+        >
+          {skill.slice(0, 2).toUpperCase()}
+        </div>
+      )}
+      <span className="text-xs text-center text-base-content/70 leading-tight">
+        {skill}
+      </span>
+    </div>
+  );
+};
+
 const SkillCard = ({
   loading,
   skills,
@@ -29,6 +84,14 @@ const SkillCard = ({
   skills: string[];
 }) => {
   const { t } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
+
+  const salesforceSubSkills = skills.filter((skill) =>
+    SALESFORCE_GROUP.includes(skill),
+  );
+  const mainSkills = skills.filter(
+    (skill) => !SALESFORCE_GROUP.includes(skill),
+  );
 
   const renderSkeleton = () => {
     const array = [];
@@ -69,31 +132,42 @@ const SkillCard = ({
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
             {loading
               ? renderSkeleton()
-              : skills.map((skill, index) => {
-                  const icon = SKILL_ICONS[skill];
-                  return (
-                    <div
+              : mainSkills.map((skill, index) =>
+                  skill === 'Salesforce' && salesforceSubSkills.length > 0 ? (
+                    <button
                       key={index}
-                      className="aspect-square rounded-xl bg-base-200 border border-base-300 flex flex-col items-center justify-center gap-2 p-3"
+                      onClick={() => setExpanded((current) => !current)}
+                      className="aspect-square rounded-xl bg-base-200 border border-primary/40 flex flex-col items-center justify-center gap-2 p-3 relative"
                     >
-                      {icon ? (
-                        <img
-                          src={icon}
-                          alt=""
-                          className="w-9 h-9 object-contain"
-                        />
-                      ) : (
-                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
-                          {skill.slice(0, 2).toUpperCase()}
-                        </div>
-                      )}
+                      <img
+                        src={SKILL_ICONS.Salesforce}
+                        alt=""
+                        className="w-9 h-9 object-contain"
+                      />
                       <span className="text-xs text-center text-base-content/70 leading-tight">
-                        {skill}
+                        Salesforce
                       </span>
-                    </div>
-                  );
-                })}
+                      <PiCaretDownBold
+                        className={`absolute top-2 right-2 text-primary text-xs transition-transform ${
+                          expanded ? 'rotate-180' : ''
+                        }`}
+                      />
+                    </button>
+                  ) : (
+                    <SkillTile key={index} skill={skill} />
+                  ),
+                )}
           </div>
+
+          {!loading && expanded && salesforceSubSkills.length > 0 && (
+            <div className="mt-4 pt-4 border-t border-base-300">
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                {salesforceSubSkills.map((skill, index) => (
+                  <SkillTile key={index} skill={skill} small />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
