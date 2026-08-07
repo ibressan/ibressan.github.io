@@ -5,7 +5,7 @@ const DEVICON_BASE =
   'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
 
 // Maps a skill label to its icon URL. Skills with no devicon entry (mostly
-// Salesforce-specific tools) fall back to a plain text badge.
+// Salesforce-specific tools) fall back to a plain text tile.
 const SKILL_ICONS: Record<string, string> = {
   Salesforce: `${DEVICON_BASE}/salesforce/salesforce-original.svg`,
   Apex: `${DEVICON_BASE}/apex/apex-original.svg`,
@@ -13,7 +13,12 @@ const SKILL_ICONS: Record<string, string> = {
   HTML: `${DEVICON_BASE}/html5/html5-original.svg`,
   CSS: `${DEVICON_BASE}/css3/css3-original.svg`,
   JavaScript: `${DEVICON_BASE}/javascript/javascript-original.svg`,
+  Java: `${DEVICON_BASE}/java/java-original.svg`,
   Git: `${DEVICON_BASE}/git/git-original.svg`,
+  Oracle: `${DEVICON_BASE}/oracle/oracle-original.svg`,
+  MySQL: `${DEVICON_BASE}/mysql/mysql-original.svg`,
+  PostgreSQL: `${DEVICON_BASE}/postgresql/postgresql-original.svg`,
+  'SQL Server': `${DEVICON_BASE}/microsoftsqlserver/microsoftsqlserver-plain.svg`,
 };
 
 const SkillCard = ({
@@ -27,11 +32,13 @@ const SkillCard = ({
 
   const renderSkeleton = () => {
     const array = [];
-    for (let index = 0; index < 12; index++) {
+    for (let index = 0; index < 11; index++) {
       array.push(
-        <div key={index} className="flex flex-col items-center gap-2 w-16">
-          {skeleton({ widthCls: 'w-12', heightCls: 'h-12', shape: '' })}
-          {skeleton({ widthCls: 'w-10', heightCls: 'h-3' })}
+        <div
+          key={index}
+          className="aspect-square rounded-xl bg-base-200 flex items-center justify-center"
+        >
+          {skeleton({ widthCls: 'w-10', heightCls: 'h-10', shape: '' })}
         </div>,
       );
     }
@@ -42,8 +49,8 @@ const SkillCard = ({
   return (
     <div className="card shadow-lg card-sm bg-base-100">
       <div className="card-body">
-        <div className="mx-3">
-          <h5 className="card-title">
+        <div className="mx-3 text-center">
+          <h5 className="card-title justify-center">
             {loading ? (
               skeleton({ widthCls: 'w-32', heightCls: 'h-8' })
             ) : (
@@ -52,33 +59,37 @@ const SkillCard = ({
               </span>
             )}
           </h5>
+          {!loading && (
+            <p className="text-sm text-base-content/50 mt-1">
+              {t('techStackSubtitle')}
+            </p>
+          )}
         </div>
-        <div className="p-3 flow-root">
-          <div className="-m-1 flex flex-wrap justify-center gap-4">
+        <div className="p-3">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3">
             {loading
               ? renderSkeleton()
               : skills.map((skill, index) => {
                   const icon = SKILL_ICONS[skill];
-                  return icon ? (
+                  return (
                     <div
                       key={index}
-                      className="flex flex-col items-center gap-2 w-16"
+                      className="aspect-square rounded-xl bg-base-200 border border-base-300 flex flex-col items-center justify-center gap-2 p-3"
                     >
-                      <div className="w-12 h-12 rounded-full bg-base-200 flex items-center justify-center p-2.5">
+                      {icon ? (
                         <img
                           src={icon}
-                          alt={skill}
-                          title={skill}
-                          className="w-full h-full object-contain"
+                          alt=""
+                          className="w-9 h-9 object-contain"
                         />
-                      </div>
-                      <span className="text-xs text-center text-base-content/70">
+                      ) : (
+                        <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center text-primary font-bold text-sm">
+                          {skill.slice(0, 2).toUpperCase()}
+                        </div>
+                      )}
+                      <span className="text-xs text-center text-base-content/70 leading-tight">
                         {skill}
                       </span>
-                    </div>
-                  ) : (
-                    <div key={index} className="badge badge-primary badge-sm">
-                      {skill}
                     </div>
                   );
                 })}

@@ -23,6 +23,22 @@ interface HeroProps {
   onToggleTheme: () => void;
 }
 
+const SocialBadge: React.FC<{
+  href: string;
+  label: string;
+  children: React.ReactNode;
+}> = ({ href, label, children }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    aria-label={label}
+    className="inline-flex items-center justify-center w-9 h-9 rounded-lg bg-base-200 text-base-content/70 hover:bg-base-300 hover:text-base-content transition-colors"
+  >
+    {children}
+  </a>
+);
+
 const Hero: React.FC<HeroProps> = ({
   profile,
   loading,
@@ -73,8 +89,8 @@ const Hero: React.FC<HeroProps> = ({
         </div>
       </div>
 
-      <div className="card bg-base-100 shadow-md border border-base-300 overflow-visible pt-14">
-        <div className="w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden shrink-0 ring-4 ring-base-100 shadow-sm mx-auto -mt-24">
+      <div className="card bg-base-100 shadow-md border border-base-300 overflow-visible pt-16">
+        <div className="w-36 h-36 sm:w-40 sm:h-40 rounded-full overflow-hidden shrink-0 ring-4 ring-base-100 shadow-sm mx-auto -mt-28">
           {loading || !profile ? (
             skeleton({ widthCls: 'w-full', heightCls: 'h-full', shape: '' })
           ) : (
@@ -90,43 +106,27 @@ const Hero: React.FC<HeroProps> = ({
           )}
         </div>
 
-        <div className="card-body items-center text-center pt-4 pb-8 px-6 sm:px-8">
-          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
+        <div className="card-body items-center text-center pt-5 pb-8 px-6 sm:px-10">
+          <h1 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-wide">
             {loading || !profile
               ? skeleton({ widthCls: 'w-48', heightCls: 'h-8' })
               : profile.name}
           </h1>
 
-          {subtitle && <p className="mt-1 text-base-content/70">{subtitle}</p>}
-
-          {profile?.location && (
-            <p className="mt-1 flex items-center gap-1.5 text-sm text-base-content/60">
-              <FaMapMarkerAlt /> {profile.location}
-            </p>
-          )}
-
-          <div className="mt-3 flex items-center gap-3">
-            <a
-              href={`https://github.com/${github.username}`}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-neutral text-neutral-content hover:opacity-90"
-              aria-label="GitHub"
-            >
-              <FaGithub />
-            </a>
-            {social?.linkedin && (
-              <a
-                href={`https://www.linkedin.com/in/${social.linkedin}`}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#0A66C2] text-white hover:opacity-90"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedin />
-              </a>
+          <div className="mt-2 flex flex-wrap items-center justify-center gap-4 text-sm text-base-content/60">
+            {subtitle && <span>{subtitle}</span>}
+            {profile?.location && (
+              <span className="flex items-center gap-1.5">
+                <FaMapMarkerAlt /> {profile.location}
+              </span>
             )}
           </div>
+
+          {profile?.bio && (
+            <p className="mt-4 max-w-2xl text-base-content/70 leading-relaxed">
+              {profile.bio}
+            </p>
+          )}
 
           {resumeFileUrl && (
             <a
@@ -134,11 +134,28 @@ const Hero: React.FC<HeroProps> = ({
               target="_blank"
               rel="noreferrer"
               download
-              className="btn btn-primary btn-sm mt-5"
+              className="btn btn-primary btn-sm mt-6"
             >
               {t('downloadResume')}
             </a>
           )}
+
+          <div className="mt-6 flex items-center gap-2">
+            <SocialBadge
+              href={`https://github.com/${github.username}`}
+              label="GitHub"
+            >
+              <FaGithub />
+            </SocialBadge>
+            {social?.linkedin && (
+              <SocialBadge
+                href={`https://www.linkedin.com/in/${social.linkedin}`}
+                label="LinkedIn"
+              >
+                <FaLinkedin />
+              </SocialBadge>
+            )}
+          </div>
         </div>
       </div>
     </div>

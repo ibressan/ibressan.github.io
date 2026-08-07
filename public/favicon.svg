@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <style>
+    .letter-b { fill: #111111; }
+    @media (prefers-color-scheme: dark) {
+      .letter-b { fill: #FFFFFF; }
+    }
+  </style>
+
+  <g id="dot-i">
+    <circle cx="22" cy="22" r="11" fill="#2ECC71" />
+    <circle cx="22" cy="50" r="11" fill="#3498DB" />
+    <circle cx="22" cy="78" r="11" fill="#E74C3C" />
+  </g>
+
+  <text x="48" y="86" font-family="sans-serif" font-weight="900" font-size="92" class="letter-b">B</text>
+</svg>

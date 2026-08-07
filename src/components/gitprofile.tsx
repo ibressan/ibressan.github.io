@@ -17,6 +17,7 @@ import Hero from './hero';
 import { Profile } from '../interfaces/profile';
 import SkillCard from './skill-card';
 import ExperienceCard from './experience-card';
+import AchievementsCard from './achievements-card';
 import EducationCard from './education-card';
 import CertificationCard from './certification-card';
 import { GithubProject } from '../interfaces/github-project';
@@ -218,6 +219,15 @@ const GitProfile = ({ config }: { config: Config }) => {
                 <ExperienceCard
                   loading={loading}
                   experiences={sanitizedConfig.experiences}
+                />
+              </div>
+            )}
+
+            {sanitizedConfig.achievements.length !== 0 && (
+              <div className="site-section">
+                <AchievementsCard
+                  loading={loading}
+                  achievements={sanitizedConfig.achievements}
                 />
               </div>
             )}

@@ -223,6 +223,7 @@ interface Experience {
   from: LocalizedText;
   to: LocalizedText;
   companyLink?: string;
+  highlights?: LocalizedText[];
 }
 
 interface Certification {
@@ -348,6 +349,11 @@ interface Config {
    * Experience list
    */
   experiences?: Array<Experience>;
+
+  /**
+   * Key achievements list
+   */
+  achievements?: Array<LocalizedText>;
 
   /**
    * Certifications list

@@ -2,9 +2,12 @@ export type Language = 'pt' | 'en';
 
 export const STRINGS: Record<Language, Record<string, string>> = {
   pt: {
-    experience: 'Experiência',
+    experience: 'Experiência Profissional',
+    experienceSubtitle: 'Minha trajetória profissional em tecnologia',
+    achievements: 'Principais Conquistas',
     education: 'Formação',
-    techStack: 'Tecnologias',
+    techStack: 'Skills',
+    techStackSubtitle: 'Tecnologias e ferramentas que eu uso',
     certification: 'Certificação',
     publications: 'Publicações',
     myArticles: 'Meus Artigos',
@@ -24,9 +27,12 @@ export const STRINGS: Record<Language, Record<string, string>> = {
     inThisEdition: 'Nesta edição',
   },
   en: {
-    experience: 'Experience',
+    experience: 'Work Experience',
+    experienceSubtitle: 'My professional journey in technology',
+    achievements: 'Key Achievements',
     education: 'Education',
-    techStack: 'Tech Stack',
+    techStack: 'Skills',
+    techStackSubtitle: 'Technologies and tools I work with',
     certification: 'Certification',
     publications: 'Publications',
     myArticles: 'My Articles',

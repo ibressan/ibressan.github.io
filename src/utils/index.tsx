@@ -95,6 +95,7 @@ export const getSanitizedConfig = (
             experience.from ||
             experience.to,
         ) || [],
+      achievements: config?.achievements || [],
       certifications:
         config?.certifications?.filter(
           (certification) =>

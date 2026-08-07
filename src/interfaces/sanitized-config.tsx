@@ -77,6 +77,7 @@ export interface SanitizedExperience {
   from: LocalizedText;
   to: LocalizedText;
   companyLink?: string;
+  highlights?: LocalizedText[];
 }
 
 export interface SanitizedCertification {
@@ -134,6 +135,7 @@ export interface SanitizedConfig {
   resume: SanitizedResume;
   skills: Array<string>;
   experiences: Array<SanitizedExperience>;
+  achievements: Array<LocalizedText>;
   educations: Array<SanitizedEducation>;
   certifications: Array<SanitizedCertification>;
   publications: Array<SanitizedPublication>;
